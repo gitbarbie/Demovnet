@@ -1,0 +1,19 @@
+name: Create VNet
+on: 
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Create VNet
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az network vnet create \
+            --name myVNet \
+            --resource-group myResourceGroup \
+            --subnet-name mySubnet
